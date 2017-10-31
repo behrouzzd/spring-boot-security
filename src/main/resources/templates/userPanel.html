@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>User Management Page</title>
+    <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+<h3>User Panel <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b></h3>
+<div>
+
+
+    <form th:action="@{/addUser}" method="POST">
+        <table >
+            <tr>
+                <td>Add new user</td>
+            </tr>
+            <tr>
+                <td>Enter username : <input type="text" name="username"/> </td>
+                <td>Enter password : <input type="text" name="password"/> </td>
+                <td><input type="submit" value="add"/> </td>
+                <td>
+                    <p th:if="${error}" class="error">
+                        Username bad format or password length is not between 3 and 10 !
+                    </p>
+                    <p th:if="${userExist}" class="error">
+                        User exist.!
+                    </p>
+                </td>
+            </tr>
+        </table>
+    </form>
+    <table border="1">
+        <tr th:each="user : ${users}">
+            <td th:text="${user.username}">username</td>
+        </tr>
+    </table>
+
+    <br/>
+    <form th:action="@{/addItem}" method="POST">
+        <table >
+            <tr>
+                <td>Add new item for this user</td>
+            </tr>
+            <tr>
+                <td>Enter item name : <input type="text" name="itemName"/> </td>
+                <td><input type="submit" value="add"/> </td>
+            </tr>
+
+        </table>
+    </form>
+    <table border="1">
+        <tr th:each="item : ${items}">
+            <td th:text="${item.name}">item</td>
+        </tr>
+    </table>
+
+</div>
+
+
+</body>
+</html>

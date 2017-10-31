@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+      <title>User Profile</title>
+      <link rel="stylesheet" href="/css/styles.css"/>
+</head>
+<body>
+   <h3>User Profile <b th:inline="text"  class="user"> [[${#httpServletRequest.remoteUser}]] </b></h3>
+   <div>
+
+       <form th:action="@{/item}" method="POST">
+           <table >
+               <tr>
+                   <td>Enter item id : <input type="text" name="itemId"/> </td>
+                   <td><input type="submit" value="show item > "/></td>
+                       <p th:if="${item}">
+                           <td th:text="${item.name}">item</td>
+                       </p>
+               </tr>
+           </table>
+       </form>
+       <br/>
+
+       <br/>
+       <form th:action="@{/userPanel}" method="POST">
+           <input type="submit" value="show user panel"/>
+       </form>
+
+   </div>
+   <br/>
+   <br/>
+
+    <table border="1">
+	      <tr th:each="user : ${users}">
+		    <td th:text="${user.username}">username</td>
+	      </tr>
+	</table>
+
+   <form th:action="@{/logout}" method="POST">
+       <td><input type="submit" value="logout"/> </td>
+   </form>
+
+</body>
+</html>   
